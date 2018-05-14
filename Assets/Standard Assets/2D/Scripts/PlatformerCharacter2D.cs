@@ -19,6 +19,8 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        private bool doubleJump;
+        private bool mousePositionRight;
 
         private void Awake()
         {
@@ -40,7 +42,10 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
+                {
                     m_Grounded = true;
+                    doubleJump = true;
+                }
             }
             m_Anim.SetBool("Ground", m_Grounded);
 
@@ -49,7 +54,7 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool jump)
+        public void Move(float move, bool crouch, bool crossHair, bool jump, bool shoot)
         {
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
@@ -77,13 +82,13 @@ namespace UnityStandardAssets._2D
                 m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
-                if (move > 0 && !m_FacingRight)
+                if ((move > 0 && !m_FacingRight) || (move == 0 && CheckMousePosition()))
                 {
                     // ... flip the player.
                     Flip();
                 }
                     // Otherwise if the input is moving the player left and the player is facing right...
-                else if (move < 0 && m_FacingRight)
+                else if ((move < 0 && m_FacingRight) || (move == 0 && CheckMousePosition()))
                 {
                     // ... flip the player.
                     Flip();
@@ -97,6 +102,23 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
+            else if(doubleJump && jump && !m_Anim.GetBool("Ground"))
+            {
+                doubleJump = false;
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            }
+
+            if (crossHair)
+            {
+                Debug.Log("I am moving the Stick!");
+            }
+
+            if (shoot)
+            {
+                
+            }
+
+
         }
 
 
@@ -104,11 +126,23 @@ namespace UnityStandardAssets._2D
         {
             // Switch the way the player is labelled as facing.
             m_FacingRight = !m_FacingRight;
+            mousePositionRight = !mousePositionRight;
 
             // Multiply the player's x local scale by -1.
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        private bool CheckMousePosition()
+        {
+            Vector2 mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            if (mousePosition.x < transform.position.x ^ mousePositionRight)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
