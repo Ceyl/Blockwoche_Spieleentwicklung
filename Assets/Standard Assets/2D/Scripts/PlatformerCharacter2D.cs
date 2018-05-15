@@ -81,7 +81,7 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool crossHair, bool jump, bool shoot)
+        public void Move(float move, bool crouch, bool crossHair, bool jump)
         {
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
@@ -165,15 +165,15 @@ namespace UnityStandardAssets._2D
 
         private bool CheckMousePosition()
         {
-            float xAxis = Input.GetAxis("Mouse X");
-            float yAxis = Input.GetAxis("Mouse Y");
-            //Vector2 mousePosition = new Vector2(xAxis, yAxis);
-            Vector2 mousePosition;
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (mousePosition.x < transform.position.x ^ mousePositionRight)
-            {
-                return true;
-            }
+            //float xAxis = Input.GetAxis("Mouse X");
+            //float yAxis = Input.GetAxis("Mouse Y");
+            ////Vector2 mousePosition = new Vector2(xAxis, yAxis);
+            //Vector2 mousePosition;
+            //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //if (mousePosition.x < transform.position.x ^ mousePositionRight)
+            //{
+            //    return true;
+            //}
             return false;
         }
     }

@@ -14,9 +14,9 @@ public class AimController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GameObject crosshair = GameObject.Find("CrossHair");
-        float xCoord = Input.GetAxis("Mouse X");
-        float yCoord = Input.GetAxis("Mouse Y");
+        Transform crosshair = gameObject.transform.GetChild(3);
+        float xCoord = Input.GetAxis(gameObject.name + " Mouse X");
+        float yCoord = Input.GetAxis(gameObject.name + " Mouse Y");
 
             Vector3 movement = new Vector3(xCoord, yCoord, 0);
             
@@ -25,7 +25,7 @@ public class AimController : MonoBehaviour {
         print(mouseCoords);
         print("x:" + xCoord + "y: " + yCoord);
         
-        if (Input.GetButtonUp("Fire1") || Input.GetAxis("Fire1") > 0)
+        if (Input.GetButtonUp(gameObject.name + " Fire1") || Input.GetAxis(gameObject.name + " Fire1") > 0)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseCoords - transform.position);
             

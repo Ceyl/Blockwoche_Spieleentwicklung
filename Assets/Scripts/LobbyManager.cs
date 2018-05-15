@@ -20,6 +20,6 @@ public class LobbyManager : MonoBehaviour {
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Holger");
+        SceneManager.LoadScene("Level1");
     }
 }

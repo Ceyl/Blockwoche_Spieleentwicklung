@@ -6,7 +6,6 @@ using UnityEngine;
 public class BuildController : MonoBehaviour {
     public Transform plate;
     public GameObject buildPlate;
-    public float gridSize;
     public Material transparent;
     public Material cantBuildTransparent;
     private BuildMode buildMode;
@@ -35,11 +34,11 @@ public class BuildController : MonoBehaviour {
         if (buildModeOn)
         {
             SnapToGrid();
-            if (Input.GetButtonUp("Build") || Input.GetAxis("Build") > 0 && canBuild)
+            if (Input.GetButtonUp(gameObject.name + " Build") || Input.GetAxis(gameObject.name + " Build") > 0 && canBuild)
             {
                 Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
             }
-            if (Input.GetButtonUp("Cancel"))
+            if (Input.GetButtonUp(gameObject.name + " Cancel"))
             {
                 Destroy(transparentPlate.gameObject);
                 buildModeOn = false;
@@ -81,7 +80,7 @@ public class BuildController : MonoBehaviour {
 
     private void ManageInput()
     {
-        if (Input.GetButtonUp("SelectBuildLeft"))
+        if (Input.GetButtonUp(gameObject.name + " SelectBuildLeft"))
         {
             if ((int)buildMode > 0) buildMode = (BuildMode)(int)buildMode - 1;
             else buildMode = (BuildMode)Enum.GetNames(typeof(BuildMode)).Length - 1;
@@ -90,7 +89,7 @@ public class BuildController : MonoBehaviour {
             GenerateBuild();
             buildModeOn = true;
         }
-        if (Input.GetButtonUp("SelectBuildRight"))
+        if (Input.GetButtonUp(gameObject.name + " SelectBuildRight"))
         {
             if ((int)buildMode < Enum.GetNames(typeof(BuildMode)).Length - 1) buildMode = (BuildMode)(int)buildMode + 1;
             else buildMode = (BuildMode)0;

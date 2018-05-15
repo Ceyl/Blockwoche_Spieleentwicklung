@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 200
+  destination: {x: 0, y: 0, z: 0}
 --- !u!120 &120800570954887258
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -87,7 +88,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
   - {x: -1, y: 0, z: 0}
   - {x: 1.5, y: 0, z: 1}
