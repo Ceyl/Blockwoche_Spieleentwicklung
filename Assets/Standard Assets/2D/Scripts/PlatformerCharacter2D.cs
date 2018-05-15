@@ -23,7 +23,7 @@ namespace UnityStandardAssets._2D
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private Transform m_WallCheck;
-        const float k_WallRadius = 0.1f;
+        const float k_WallRadius = 0.2f;
         private bool m_Walled;
 
         private bool doubleJump;
@@ -83,17 +83,17 @@ namespace UnityStandardAssets._2D
         public void Move(float move, bool crouch, bool jump)
         {
             // If crouching, check to see if the character can stand up
-            if (!crouch && m_Anim.GetBool("Crouch"))
-            {
-                // If the character has a ceiling preventing them from standing up, keep them crouching
-                if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
-                {
-                    crouch = true;
-                }
-            }
+            //if (!crouch && m_Anim.GetBool("Crouch"))
+            //{
+            //    // If the character has a ceiling preventing them from standing up, keep them crouching
+            //    if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
+            //    {
+            //        crouch = true;
+            //    }
+            //}
 
-            // Set whether or not the character is crouching in the animator
-            m_Anim.SetBool("Crouch", crouch);
+            //// Set whether or not the character is crouching in the animator
+            //m_Anim.SetBool("Crouch", crouch);
 
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)

@@ -241,6 +241,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 4588289371461618, guid: 9e0c24f5779827944a88db7252b8e54a, type: 2}
   mouseCoords: {x: 0, y: 0, z: 0}
+  fireRate: 2
+  maxDistance: 10
 --- !u!114 &114136523694600652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,7 +333,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1783731295
+  m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8fb98a6035269e64a998f9b56828fc4f, type: 3}
