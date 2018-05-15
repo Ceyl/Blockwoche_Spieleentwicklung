@@ -290,6 +290,7 @@ MonoBehaviour:
   plate: {fileID: 4195434883666246, guid: 67f9284d16306e94cac63b3f57e26638, type: 2}
   buildPlate: {fileID: 1211356975336866, guid: c100a95b20f6a144288153aa80d82f87, type: 2}
   gridSize: 2
+  transparent: {fileID: 2100000, guid: 1968313bce4438e42bb69d4add4ad29a, type: 2}
 --- !u!114 &1246783311
 MonoBehaviour:
   m_ObjectHideFlags: 0

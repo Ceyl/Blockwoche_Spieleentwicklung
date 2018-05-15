@@ -16,6 +16,6 @@ public class AimController : MonoBehaviour {
         mouseCoords = Input.mousePosition;
         mouseCoords = Camera.main.ScreenToWorldPoint(mouseCoords);
         crosshair.transform.position = Vector2.Lerp(transform.position, mouseCoords,100);
-        print(mouseCoords);
+
     }
 }
