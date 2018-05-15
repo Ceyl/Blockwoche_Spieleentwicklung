@@ -81,7 +81,7 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool crossHair, bool jump)
+        public void Move(float move, bool crouch, bool jump)
         {
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
@@ -110,13 +110,13 @@ namespace UnityStandardAssets._2D
                 m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
-                if ((move > 0 && !m_FacingRight) || (move == 0 && CheckMousePosition()))
+                if ((move > 0 && !m_FacingRight)) // || (move == 0 && CheckMousePosition()))
                 {
                     // ... flip the player.
                     Flip();
                 }
                     // Otherwise if the input is moving the player left and the player is facing right...
-                else if ((move < 0 && m_FacingRight) || (move == 0 && CheckMousePosition()))
+                else if ((move < 0 && m_FacingRight)) // || (move == 0 && CheckMousePosition()))
                 {
                     // ... flip the player.
                     Flip();
@@ -159,21 +159,23 @@ namespace UnityStandardAssets._2D
 
             // Multiply the player's x local scale by -1.
             Vector3 theScale = transform.localScale;
+            Vector2 crossHairPosition = transform.GetChild(3).transform.position;
             theScale.x *= -1;
             transform.localScale = theScale;
+            transform.GetChild(3).transform.position = crossHairPosition;
         }
 
         private bool CheckMousePosition()
         {
-            //float xAxis = Input.GetAxis("Mouse X");
-            //float yAxis = Input.GetAxis("Mouse Y");
-            ////Vector2 mousePosition = new Vector2(xAxis, yAxis);
+            float xAxis = gameObject.transform.GetChild(3).transform.position.x;
+            float yAxis = gameObject.transform.GetChild(3).transform.position.y;
+            Vector2 mousePosition = new Vector2(xAxis, yAxis);
             //Vector2 mousePosition;
-            //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //if (mousePosition.x < transform.position.x ^ mousePositionRight)
-            //{
-            //    return true;
-            //}
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            if (mousePosition.x < transform.position.x ^ mousePositionRight)
+            {
+                return true;
+            }
             return false;
         }
     }
