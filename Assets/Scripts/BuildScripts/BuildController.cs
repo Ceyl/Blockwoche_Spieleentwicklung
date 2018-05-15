@@ -8,6 +8,7 @@ public class BuildController : MonoBehaviour {
     public GameObject buildPlate;
     public float gridSize;
     public Material transparent;
+    public Material cantBuildTransparent;
     private BuildMode buildMode;
     private Transform transparentPlate;
     private AimController aimControl;
@@ -34,9 +35,14 @@ public class BuildController : MonoBehaviour {
         if (buildModeOn)
         {
             SnapToGrid();
-            if (Input.GetKeyUp(KeyCode.Mouse1) && canBuild)
+            if (Input.GetButtonUp("Build") || Input.GetAxis("Build") > 0 && canBuild)
             {
                 Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
+            }
+            if (Input.GetButtonUp("Cancel"))
+            {
+                Destroy(transparentPlate.gameObject);
+                buildModeOn = false;
             }
         }
 
@@ -56,13 +62,12 @@ public class BuildController : MonoBehaviour {
         if (collider != null)
         {
             canBuild = false;
-   
-            transparentPlate.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+            transparentPlate.gameObject.GetComponent<Renderer>().material = cantBuildTransparent;
         }
         else
         {
             canBuild = true;
-            transparentPlate.gameObject.GetComponent<Renderer>().material.color = new Color(0.0f, 0.5f, 0.5f, 0.2f);
+            transparentPlate.gameObject.GetComponent<Renderer>().material = transparent;
         }
     }
 
@@ -76,7 +81,7 @@ public class BuildController : MonoBehaviour {
 
     private void ManageInput()
     {
-        if (Input.GetKeyUp(KeyCode.F1))
+        if (Input.GetButtonUp("SelectBuildLeft"))
         {
             if ((int)buildMode > 0) buildMode = (BuildMode)(int)buildMode - 1;
             else buildMode = (BuildMode)Enum.GetNames(typeof(BuildMode)).Length - 1;
@@ -85,7 +90,7 @@ public class BuildController : MonoBehaviour {
             GenerateBuild();
             buildModeOn = true;
         }
-        if (Input.GetKeyUp(KeyCode.F2))
+        if (Input.GetButtonUp("SelectBuildRight"))
         {
             if ((int)buildMode < Enum.GetNames(typeof(BuildMode)).Length - 1) buildMode = (BuildMode)(int)buildMode + 1;
             else buildMode = (BuildMode)0;

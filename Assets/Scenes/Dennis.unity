@@ -269,6 +269,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
   m_IsPrefabParent: 0
@@ -291,6 +303,8 @@ MonoBehaviour:
   buildPlate: {fileID: 1211356975336866, guid: c100a95b20f6a144288153aa80d82f87, type: 2}
   gridSize: 2
   transparent: {fileID: 2100000, guid: 1968313bce4438e42bb69d4add4ad29a, type: 2}
+  cantBuildTransparent: {fileID: 2100000, guid: 158f3fe3759bb9349840a592af36af94,
+    type: 2}
 --- !u!114 &1246783311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91781eb59e629a547b01c6ae49242ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 4588289371461618, guid: 9e0c24f5779827944a88db7252b8e54a, type: 2}
   mouseCoords: {x: 0, y: 0, z: 0}
 --- !u!4 &1246783318 stripped
 Transform:
@@ -392,7 +407,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1646451196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.6172066, y: 4.870365, z: 0.20507812}
+  m_LocalPosition: {x: -3.6172066, y: 4.870365, z: 0}
   m_LocalScale: {x: 0.112896584, y: 0.11289673, z: 1}
   m_Children: []
   m_Father: {fileID: 1246783318}
