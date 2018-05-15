@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -38,7 +36,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < playerCount; i++)
         {
             GameObject player = Instantiate(playerPrefab, new Vector3(tmpDistance, 2, 0), Quaternion.identity);
-            player.name = string.Format("Player{0}", i);
+            player.name = string.Format("Player{0}", i+1);
             player.GetComponent<SpriteRenderer>().color = colors[i];
             tmpDistance += distance;
         }
