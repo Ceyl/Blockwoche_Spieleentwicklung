@@ -31,10 +31,9 @@ namespace UnityStandardAssets._2D
         {
             // Read the inputs.
             bool crouch = Input.GetKey(KeyCode.LeftControl);
-            bool crossHair = Input.GetKey(KeyCode.RightControl);
             float h = CrossPlatformInputManager.GetAxis(gameObject.name + " Horizontal");
             // Pass all parameters to the character control script.
-            m_Character.Move(h, crouch, crossHair, m_Jump);
+            m_Character.Move(h, crouch, m_Jump);
             m_Jump = false;
         }
     }
