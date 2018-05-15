@@ -16,6 +16,7 @@ public class BuildController : MonoBehaviour {
     private Vector3 scaleVector;
     private bool buildModeOn;
     private int selectedBuildMode;
+    private bool isGenerating;
 	// Use this for initialization
 	void Start () {
         aimControl = GetComponentInParent<AimController>();
@@ -25,19 +26,22 @@ public class BuildController : MonoBehaviour {
         scaleCollection[BuildMode.BuildMode2x2] = new Vector3 (2, 2 );
         scaleCollection[BuildMode.BuildMode2x4] = new Vector3 (2, 4 );
         scaleCollection[BuildMode.BuildMode4x2] = new Vector3 (4, 2 );
-       
+        isGenerating = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
         ManageInput();
+        
         if (buildModeOn)
         {
             SnapToGrid();
-            if (Input.GetButtonUp(gameObject.name + " Build") || Input.GetAxis(gameObject.name + " Build") > 0 && canBuild)
+            if (Input.GetAxisRaw(gameObject.name + " Build") > 0 && canBuild && !isGenerating)
             {
+                isGenerating = true;
                 Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
             }
+            if (Input.GetAxis(gameObject.name + " Build") <= 0) isGenerating = false;
             if (Input.GetButtonUp(gameObject.name + " Cancel"))
             {
                 Destroy(transparentPlate.gameObject);

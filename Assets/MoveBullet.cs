@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveBullet : MonoBehaviour {
 
-    public float moveSpeed = 200;
+    public float moveSpeed = 100;
     public Vector3 destination;
 	// Update is called once per frame
 	void Update () {

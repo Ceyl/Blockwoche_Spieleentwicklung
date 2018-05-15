@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/main.unity
     guid: 8a20a77dd548def47b81f25c63b1f725
   - enabled: 1
-    path: Assets/Scenes/Holger.unity
+    path: Assets/Scenes/Level1.unity
     guid: 2faca73cadd8d2243ac042a611db53e0
   m_configObjects: {}
