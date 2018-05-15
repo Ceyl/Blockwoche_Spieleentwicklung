@@ -10,6 +10,8 @@ namespace UnityStandardAssets._2D
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+        [SerializeField] private float m_doubleJumpModifier = 1.5f;
+        [SerializeField] private float m_wallSlideModifier = 0.4f;
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -20,11 +22,20 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
+        private Transform m_WallCheck;
+        const float k_WallRadius = 0.1f;
+        private bool m_Walled;
+
+        private bool doubleJump;
+        private bool mousePositionRight;
+        private bool startFalling;
+
         private void Awake()
         {
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
             m_CeilingCheck = transform.Find("CeilingCheck");
+            m_WallCheck = transform.Find("WallCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
@@ -33,6 +44,7 @@ namespace UnityStandardAssets._2D
         private void FixedUpdate()
         {
             m_Grounded = false;
+            m_Walled = false;
 
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
             // This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -40,8 +52,28 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
+                {
                     m_Grounded = true;
+                    doubleJump = true;
+                    m_Walled = false;
+                    startFalling = false;
+                }
             }
+
+            colliders = Physics2D.OverlapCircleAll(m_WallCheck.position, k_WallRadius, m_WhatIsGround);
+            for (int i = 0; i < colliders.Length; i++)
+            {  
+                if (colliders[i].gameObject != gameObject)
+                {
+                    m_Walled = true;
+                    if (!m_Grounded && !startFalling)
+                    {
+                        startFalling = true;
+                        m_Rigidbody2D.velocity = new Vector2(0f, 0f);
+                    }
+                }
+            }
+
             m_Anim.SetBool("Ground", m_Grounded);
 
             // Set the vertical animation
@@ -49,7 +81,7 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool jump)
+        public void Move(float move, bool crouch, bool crossHair, bool jump, bool shoot)
         {
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
@@ -69,6 +101,7 @@ namespace UnityStandardAssets._2D
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
                 move = (crouch ? move*m_CrouchSpeed : move);
+                //move = (m_Walled && !m_Grounded ? 0 : move);
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
                 m_Anim.SetFloat("Speed", Mathf.Abs(move));
@@ -77,13 +110,13 @@ namespace UnityStandardAssets._2D
                 m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
-                if (move > 0 && !m_FacingRight)
+                if ((move > 0 && !m_FacingRight) || (move == 0 && CheckMousePosition()))
                 {
                     // ... flip the player.
                     Flip();
                 }
                     // Otherwise if the input is moving the player left and the player is facing right...
-                else if (move < 0 && m_FacingRight)
+                else if ((move < 0 && m_FacingRight) || (move == 0 && CheckMousePosition()))
                 {
                     // ... flip the player.
                     Flip();
@@ -97,6 +130,24 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
+            else if(doubleJump && jump && !m_Anim.GetBool("Ground"))
+            {
+                doubleJump = false;
+                startFalling = false;
+                m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0f);
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce * m_doubleJumpModifier));
+            }
+
+            if (startFalling && m_Walled)
+            {
+                move = (!m_FacingRight && move < 0 ^ m_FacingRight && move > 0) ? move : 0;
+                m_Rigidbody2D.velocity = new Vector2(move, m_Rigidbody2D.velocity.y + m_wallSlideModifier);
+            }
+            else
+            {
+                m_Rigidbody2D.AddForce(Physics2D.gravity);
+            }
+
         }
 
 
@@ -104,11 +155,26 @@ namespace UnityStandardAssets._2D
         {
             // Switch the way the player is labelled as facing.
             m_FacingRight = !m_FacingRight;
+            mousePositionRight = !mousePositionRight;
 
             // Multiply the player's x local scale by -1.
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        private bool CheckMousePosition()
+        {
+            float xAxis = Input.GetAxis("Mouse X");
+            float yAxis = Input.GetAxis("Mouse Y");
+            //Vector2 mousePosition = new Vector2(xAxis, yAxis);
+            Vector2 mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (mousePosition.x < transform.position.x ^ mousePositionRight)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
