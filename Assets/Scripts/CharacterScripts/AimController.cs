@@ -9,22 +9,28 @@ public class AimController : MonoBehaviour {
     public int fireRate = 2;
     float timeToFire = 0;
     private bool isFiring;
+    public float maxDistance = 10;
+    private Transform crosshair;
 	// Use this for initialization
 	void Start () {
         Cursor.visible = false;
         isFiring = false;
+        crosshair = gameObject.transform.GetChild(3);
+        crosshair.position = transform.position;
         //mouseCoords = Input.mousePosition;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        Transform crosshair = gameObject.transform.GetChild(3);
+        
         float xCoord = Input.GetAxis(gameObject.name + " Mouse X");
         float yCoord = Input.GetAxis(gameObject.name + " Mouse Y");
 
             Vector3 movement = new Vector3(xCoord, yCoord, 0);
-            
+        if (Vector3.Distance(crosshair.transform.position + movement, transform.position) < maxDistance)
+        {
             crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 0.5f);
+        }
         mouseCoords = crosshair.transform.position;
         print(mouseCoords);
         print("x:" + xCoord + "y: " + yCoord);
