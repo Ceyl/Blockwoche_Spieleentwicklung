@@ -13,9 +13,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject playerPrefab;
 
     [SerializeField] private float timeLeft = 300f;
-    [Range(2, 4)] [SerializeField] private int playerCount = 2;
+    [Range(2, 4)] [SerializeField] private int playerCount; 
     private bool timeColorChanged;
     private bool gameOver;
+    private bool gameRunning;
     private int minutes;
     private int seconds;
     private Camera mainCamera;
@@ -23,12 +24,16 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        playerCount = GameStats.players;
+        gameRunning = true;
         gameOver = false;
         timeColorChanged = false;
         mainCamera = Camera.main;
+
         // calculate distance to spawn chars in same distance to each other
         float distance = (2 * (mainCamera.orthographicSize - mainCamera.orthographicSize * 0.1f)) / playerCount;
         float tmpDistance = -(mainCamera.orthographicSize - mainCamera.orthographicSize * 0.1f) + distance / 2;
+
         // spawn players on map
         for (int i = 0; i < playerCount; i++)
         {
@@ -40,13 +45,15 @@ public class GameManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-
-        if(!gameOver)
-            CheckTime();
-        else
-            GameOver();
-
+	void Update ()
+    {
+        if (gameRunning)
+        {
+            if (!gameOver)
+                CheckTime();
+            else
+                GameOver();
+        }
     }
 
     private void CheckTime()
@@ -77,7 +84,10 @@ public class GameManager : MonoBehaviour {
     {
         // get all player objects which are still in scene
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject winner = players[0];
+        GameObject winner = new GameObject();
+        winner.name = "Nobody";
+        if (players.Length > 0)
+            winner = players[0];
 
         // check players y position to calculate winner
         for (int i = 1; i < players.Length; i++)
@@ -88,6 +98,7 @@ public class GameManager : MonoBehaviour {
         winnerNameText.GetComponent<Text>().text = winner.name;
         winnerNameText.SetActive(true);
         restartButton.SetActive(true);
+        gameRunning = false;
     }
 
     public void Restart()
