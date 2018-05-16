@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
             GameObject player = Instantiate(playerPrefab, new Vector3(tmpDistance, 2, 0), Quaternion.identity);
             player.name = string.Format("Player{0}", i+1);
             player.GetComponent<SpriteRenderer>().color = colors[i];
+            player.GetComponent<BuildController>().playerColor = colors[i];
             tmpDistance += distance;
         }
     }

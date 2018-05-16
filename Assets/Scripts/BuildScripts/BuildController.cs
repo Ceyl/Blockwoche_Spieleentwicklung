@@ -8,6 +8,7 @@ public class BuildController : MonoBehaviour {
     public GameObject buildPlate;
     public Material transparent;
     public Material cantBuildTransparent;
+    public Color playerColor;
     private BuildMode buildMode;
     private Transform transparentPlate;
     private AimController aimControl;
@@ -17,8 +18,9 @@ public class BuildController : MonoBehaviour {
     private bool buildModeOn;
     private int selectedBuildMode;
     private bool isGenerating;
-	// Use this for initialization
-	void Start () {
+    private Color[] colors = new Color[] { Color.blue, Color.red, Color.green, Color.yellow };
+    // Use this for initialization
+    void Start () {
         aimControl = GetComponentInParent<AimController>();
         buildModeOn = false;
         scaleCollection = new Dictionary<BuildMode, Vector3>();
@@ -27,6 +29,7 @@ public class BuildController : MonoBehaviour {
         scaleCollection[BuildMode.BuildMode2x4] = new Vector3 (2, 4 );
         scaleCollection[BuildMode.BuildMode4x2] = new Vector3 (4, 2 );
         isGenerating = false;
+        
     }
 	
 	// Update is called once per frame
@@ -39,7 +42,8 @@ public class BuildController : MonoBehaviour {
             if (Input.GetAxisRaw(gameObject.name + " Build") > 0 && canBuild && !isGenerating)
             {
                 isGenerating = true;
-                Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
+                GameObject cube = Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
+                cube.GetComponent<SpriteRenderer>().material.color = playerColor;
             }
             if (Input.GetAxis(gameObject.name + " Build") <= 0) isGenerating = false;
             if (Input.GetButtonUp(gameObject.name + " Cancel"))
@@ -79,7 +83,8 @@ public class BuildController : MonoBehaviour {
         if (transparentPlate != null) Destroy(transparentPlate.gameObject);
         Vector3 position = new Vector3(0, 0, 0);
         transparentPlate = Instantiate(plate, position, Quaternion.identity);
-        transparentPlate.gameObject.GetComponent<Renderer>().material.color = gameObject.GetComponent<Renderer>().material.color;
+        transparentPlate.gameObject.GetComponent<SpriteRenderer>().material.color = playerColor;
+        
     }
 
     private void ManageInput()
@@ -105,5 +110,10 @@ public class BuildController : MonoBehaviour {
 
 
 
+    }
+
+    public void HitPlayer(Vector2 direction, float force)
+    {
+        gameObject.GetComponent<Rigidbody2D>().AddForce(direction * force);
     }
 }

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 222657790944598288}
   - component: {fileID: 114136523694600652}
   - component: {fileID: 114015572342612582}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.68}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.31
 --- !u!95 &95908169456444698
 Animator:
   serializedVersion: 3
@@ -259,6 +259,7 @@ MonoBehaviour:
   transparent: {fileID: 2100000, guid: 1968313bce4438e42bb69d4add4ad29a, type: 2}
   cantBuildTransparent: {fileID: 2100000, guid: 158f3fe3759bb9349840a592af36af94,
     type: 2}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114314848905760356
 MonoBehaviour:
   m_ObjectHideFlags: 1

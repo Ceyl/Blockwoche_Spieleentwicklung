@@ -29,7 +29,7 @@ public class AimController : MonoBehaviour {
             Vector3 movement = new Vector3(xCoord, yCoord, 0);
         if (Vector3.Distance(crosshair.transform.position + movement, transform.position) < maxDistance)
         {
-            crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 0.5f);
+            crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 1f);
         }
         mouseCoords = crosshair.transform.position;
         print(mouseCoords);
@@ -38,13 +38,13 @@ public class AimController : MonoBehaviour {
         if ((Input.GetButtonUp(gameObject.name + " Fire1") || Input.GetAxisRaw(gameObject.name + " Fire1") > 0) && !isFiring)
         {
             isFiring = true;
-            
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
             RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseCoords - transform.position);
-            
+            gameObject.layer = LayerMask.NameToLayer("Player");
             Shoot(hit);
             if (hit.transform != null)
             {
-                if(hit.transform.GetComponent<Health>() != null)hit.transform.GetComponent<Health>().AddDamage(50);
+
             }
             Debug.DrawLine(transform.position, (mouseCoords-transform.position) *100);
         }
@@ -54,14 +54,22 @@ public class AimController : MonoBehaviour {
     void Shoot(RaycastHit2D hit)
     {
         Vector3 destPoint;
-        if (hit.transform != null)
+        Transform destObject;
+        if (hit.transform != null )
         {
-            destPoint = hit.transform.position;
-        } else destPoint = new Vector3(100,100,100);
+            destPoint = hit.point;
+            destObject = hit.transform;
+        }
+        else
+        {
+            destPoint = new Vector3(100, 100, 100);
+            destObject = null;
+        }
         float angle = Vector3.Angle(mouseCoords - transform.position, transform.right);
         if (mouseCoords.y < transform.position.y) angle *= -1;
         
         Transform bulletTrans = Instantiate(bullet, transform.position, Quaternion.AngleAxis(angle, new Vector3(0,0,1)));
         bulletTrans.gameObject.GetComponent<MoveBullet>().destination = destPoint;
+        bulletTrans.gameObject.GetComponent<MoveBullet>().destinationObject = destObject;
     }
 }
