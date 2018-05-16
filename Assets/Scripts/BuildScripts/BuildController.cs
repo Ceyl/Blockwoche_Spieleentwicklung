@@ -17,6 +17,7 @@ public class BuildController : MonoBehaviour {
     private bool buildModeOn;
     private int selectedBuildMode;
     private bool isGenerating;
+
 	// Use this for initialization
 	void Start () {
         aimControl = GetComponentInParent<AimController>();
@@ -39,6 +40,7 @@ public class BuildController : MonoBehaviour {
             if (Input.GetAxisRaw(gameObject.name + " Build") > 0 && canBuild && !isGenerating)
             {
                 isGenerating = true;
+                buildPlate.transform.localScale = transparentPlate.localScale;
                 Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
             }
             if (Input.GetAxis(gameObject.name + " Build") <= 0) isGenerating = false;
@@ -86,19 +88,19 @@ public class BuildController : MonoBehaviour {
     {
         if (Input.GetButtonUp(gameObject.name + " SelectBuildLeft"))
         {
-            if ((int)buildMode > 0) buildMode = (BuildMode)(int)buildMode - 1;
+            if (buildMode > 0) buildMode = buildMode - 1;
             else buildMode = (BuildMode)Enum.GetNames(typeof(BuildMode)).Length - 1;
             plate.localScale = scaleCollection[buildMode];
-            buildPlate.transform.localScale = scaleCollection[buildMode];
+            buildPlate.transform.localScale = plate.localScale;
             GenerateBuild();
             buildModeOn = true;
         }
         if (Input.GetButtonUp(gameObject.name + " SelectBuildRight"))
         {
-            if ((int)buildMode < Enum.GetNames(typeof(BuildMode)).Length - 1) buildMode = (BuildMode)(int)buildMode + 1;
-            else buildMode = (BuildMode)0;
+            if ((int)buildMode < Enum.GetNames(typeof(BuildMode)).Length - 1) buildMode = buildMode + 1;
+            else buildMode = 0;
             plate.localScale = scaleCollection[buildMode];
-            buildPlate.transform.localScale = scaleCollection[buildMode];
+            buildPlate.transform.localScale = plate.localScale;
             GenerateBuild();
             buildModeOn = true;
         }
