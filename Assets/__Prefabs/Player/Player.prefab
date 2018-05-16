@@ -242,7 +242,7 @@ MonoBehaviour:
   bullet: {fileID: 4588289371461618, guid: 9e0c24f5779827944a88db7252b8e54a, type: 2}
   mouseCoords: {x: 0, y: 0, z: 0}
   fireRate: 2
-  maxDistance: 10
+  maxDistance: 5
 --- !u!114 &114136523694600652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d20246735e7898499b001858935155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plate: {fileID: 4195434883666246, guid: 67f9284d16306e94cac63b3f57e26638, type: 2}
+  plate: {fileID: 4064616983003616, guid: 31297f8e15342134db340790e5275a7d, type: 2}
   buildPlate: {fileID: 1211356975336866, guid: c100a95b20f6a144288153aa80d82f87, type: 2}
   transparent: {fileID: 2100000, guid: 1968313bce4438e42bb69d4add4ad29a, type: 2}
   cantBuildTransparent: {fileID: 2100000, guid: 158f3fe3759bb9349840a592af36af94,

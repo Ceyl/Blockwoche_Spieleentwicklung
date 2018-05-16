@@ -65,12 +65,12 @@ public class BuildController : MonoBehaviour {
         if (collider != null)
         {
             canBuild = false;
-            transparentPlate.gameObject.GetComponent<Renderer>().material = cantBuildTransparent;
+            transparentPlate.gameObject.GetComponent<Renderer>().enabled = false;
         }
         else
         {
             canBuild = true;
-            transparentPlate.gameObject.GetComponent<Renderer>().material = transparent;
+            transparentPlate.gameObject.GetComponent<Renderer>().enabled = true; 
         }
     }
 
@@ -79,7 +79,7 @@ public class BuildController : MonoBehaviour {
         if (transparentPlate != null) Destroy(transparentPlate.gameObject);
         Vector3 position = new Vector3(0, 0, 0);
         transparentPlate = Instantiate(plate, position, Quaternion.identity);
-        
+        transparentPlate.gameObject.GetComponent<Renderer>().material.color = gameObject.GetComponent<Renderer>().material.color;
     }
 
     private void ManageInput()
