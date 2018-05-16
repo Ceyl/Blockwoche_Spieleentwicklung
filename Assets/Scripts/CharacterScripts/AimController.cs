@@ -29,7 +29,7 @@ public class AimController : MonoBehaviour {
             Vector3 movement = new Vector3(xCoord, yCoord, 0);
         if (Vector3.Distance(crosshair.transform.position + movement, transform.position) < maxDistance)
         {
-            crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 0.5f);
+            crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 1f);
         }
         mouseCoords = crosshair.transform.position;
         print(mouseCoords);
