@@ -55,8 +55,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LootBoxPrefab: {fileID: 1182454215974572, guid: ec18718063b201c478e452d5601f2be9,
     type: 2}
-  minLootBoxTimer: 2
-  maxLootBoxTimer: 5
+  minLootBoxTimer: 10
+  maxLootBoxTimer: 15
 --- !u!114 &114253121583656568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,10 +70,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ground1x1Prefab: {fileID: 1084872983072182, guid: 7ea7d33c07999dd47afedd9674c28731,
     type: 2}
+  Ground1x1Multiplier: 4
   Ground4x1Prefab: {fileID: 1096267128374868, guid: 8b497550c58f621408b8ef68ccf1aa88,
     type: 2}
+  Ground4x1Multiplier: 2
   Ground8x1Prefab: {fileID: 1955712996134530, guid: 0fb71c4abe1bf7d41a5b1beddd75068c,
     type: 2}
+  Ground8x1Multiplier: 1
+  minYDistance: 10
+  maxYDistance: 15
+  minAmountBlocks: 2
+  maxAmountBlocks: 3
   actualPoint: -9.25
 --- !u!114 &114647944292160568
 MonoBehaviour:

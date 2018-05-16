@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
         // spawn players on map
         for (int i = 0; i < playerCount; i++)
         {
-            GameObject player = Instantiate(playerPrefab, new Vector3(tmpDistance, 2, 0), Quaternion.identity);
+            GameObject player = Instantiate(playerPrefab, new Vector3(tmpDistance, playerPrefab.transform.position.y, 0), Quaternion.identity);
             player.name = string.Format("Player{0}", i+1);
             player.GetComponent<SpriteRenderer>().color = colors[i];
             tmpDistance += distance;

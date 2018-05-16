@@ -384,21 +384,6 @@ Prefab:
       propertyPath: restartButton
       value: 
       objectReference: {fileID: 28275741}
-    - target: {fileID: 114161288101118878, guid: b54bb08ce69b49544afcc0e5d58ae08e,
-        type: 2}
-      propertyPath: minLootBoxTimer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114161288101118878, guid: b54bb08ce69b49544afcc0e5d58ae08e,
-        type: 2}
-      propertyPath: maxLootBoxTimer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114253121583656568, guid: b54bb08ce69b49544afcc0e5d58ae08e,
-        type: 2}
-      propertyPath: maxAmountBlocks
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b54bb08ce69b49544afcc0e5d58ae08e, type: 2}
   m_IsPrefabParent: 0
