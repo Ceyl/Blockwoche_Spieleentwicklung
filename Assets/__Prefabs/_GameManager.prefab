@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4991681089052192}
   - component: {fileID: 114647944292160568}
+  - component: {fileID: 114253121583656568}
+  - component: {fileID: 114161288101118878}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -34,12 +36,45 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1746779013756912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.937035, y: -16.32785, z: -8.632262}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114161288101118878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1746779013756912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1b5f48b2106c647a9c34a6e0037200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LootBoxPrefab: {fileID: 1182454215974572, guid: ec18718063b201c478e452d5601f2be9,
+    type: 2}
+  minLootBoxTimer: 2
+  maxLootBoxTimer: 5
+--- !u!114 &114253121583656568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1746779013756912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd75ba48bcc3854fa256e7b4b46778b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ground1x1Prefab: {fileID: 1084872983072182, guid: 7ea7d33c07999dd47afedd9674c28731,
+    type: 2}
+  Ground4x1Prefab: {fileID: 1096267128374868, guid: 8b497550c58f621408b8ef68ccf1aa88,
+    type: 2}
+  Ground8x1Prefab: {fileID: 1955712996134530, guid: 0fb71c4abe1bf7d41a5b1beddd75068c,
+    type: 2}
+  actualPoint: -9.25
 --- !u!114 &114647944292160568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,5 +86,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ace5ee05c03d442a915ed00cfdbdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timePanel: {fileID: 0}
+  timeText: {fileID: 0}
+  winnerText: {fileID: 0}
+  winnerNameText: {fileID: 0}
+  restartButton: {fileID: 0}
+  playerPrefab: {fileID: 1307065099488082, guid: 3177e16f52818ed45a95360f1af22814,
+    type: 2}
   timeLeft: 300
+  playerCount: 2

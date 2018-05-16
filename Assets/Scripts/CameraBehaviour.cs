@@ -18,13 +18,12 @@ public class CameraBehaviour : MonoBehaviour {
     {
         if (transform.position.y > mainCamera.transform.position.y + (mainCamera.transform.localScale.y * mainCamera.orthographicSize))
         {
-            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, (transform.position.y - (mainCamera.transform.localScale.y * mainCamera.orthographicSize)) + 1, mainCamera.transform.position.z);           
-        }
-
-        if (mainCamera.transform.position.y + (mainCamera.transform.localScale.y * mainCamera.orthographicSize) + 5 > FindObjectOfType<GroundManager>().actualPoint)
-        {
-            FindObjectOfType<GroundManager>().RandomGround();
-        }
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, (transform.position.y - (mainCamera.transform.localScale.y * mainCamera.orthographicSize)) + 1, mainCamera.transform.position.z);
+            if (mainCamera.transform.position.y + (mainCamera.transform.localScale.y * mainCamera.orthographicSize) + 5 > FindObjectOfType<GroundManager>().actualPoint)
+            {
+                FindObjectOfType<GroundManager>().RandomGround();
+            }
+        } 
     }
 
     private void OutOfCamera()
