@@ -53,6 +53,9 @@ public class GameManager : MonoBehaviour {
             else
                 GameOver();
         }
+
+        if (Input.GetKey(KeyCode.Escape))
+            Application.Quit();
     }
 
     private void CheckTime()

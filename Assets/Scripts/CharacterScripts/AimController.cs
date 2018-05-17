@@ -10,7 +10,6 @@ public class AimController : MonoBehaviour {
     public Transform projectile;
     public Vector3 mouseCoords;
     public int fireRate = 2;
-    float timeToFire = 0;
     private bool isFiring;
     public float maxDistance = 2f;
     private Transform crosshair;
