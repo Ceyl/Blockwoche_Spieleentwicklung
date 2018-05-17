@@ -33,15 +33,13 @@ public class MoveBullet : MonoBehaviour {
                     float bombDamage;
                     if (dist < 1) bombDamage = damage;
                     else bombDamage = damage / dist;
-                    if (col.GetComponent<Health>() != null)
+                    if(col.gameObject.layer == LayerMask.NameToLayer("Effectable") || col.gameObject.layer == LayerMask.NameToLayer("Player"))
                     {
-
-                        col.GetComponent<Health>().AddDamage(bombDamage);
                         ExplosionForce(col, col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
                     }
-                    else if (col.GetComponent<BuildController>() != null && !(col.GetType() == typeof(CircleCollider2D)))
+                    if (col.GetComponent<Health>() != null)
                     {
-                        ExplosionForce(col, col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
+                        col.GetComponent<Health>().AddDamage(bombDamage);                       
                     }
                 }
             }
