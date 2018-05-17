@@ -9,61 +9,61 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1970051659191362}
+  m_RootGameObject: {fileID: 1615954508642400}
   m_IsPrefabParent: 1
---- !u!1 &1970051659191362
+--- !u!1 &1615954508642400
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4588289371461618}
-  - component: {fileID: 120800570954887258}
-  - component: {fileID: 114349731015566264}
+  - component: {fileID: 4238283813066706}
+  - component: {fileID: 120211165784625648}
+  - component: {fileID: 114699579308997098}
   m_Layer: 0
-  m_Name: BulletTrail
+  m_Name: BombTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4588289371461618
+--- !u!4 &4238283813066706
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1970051659191362}
+  m_GameObject: {fileID: 1615954508642400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.71, y: 2.51, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -10, y: 5, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114349731015566264
+--- !u!114 &114699579308997098
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1970051659191362}
+  m_GameObject: {fileID: 1615954508642400}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 944ad15686e66154794b190db9fe6897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 100
-  bomb: 0
-  damage: 50
-  force: 100
+  moveSpeed: 50
+  bomb: 1
+  damage: 0
+  force: 0
   destinationObject: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
---- !u!120 &120800570954887258
+--- !u!120 &120211165784625648
 LineRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1970051659191362}
+  m_GameObject: {fileID: 1615954508642400}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -92,19 +92,19 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Positions:
-  - {x: -1, y: 0, z: 0}
+  - {x: -1, y: 5, z: 0}
   - {x: 1.5, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.25
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
+        time: 0.73989105
+        value: 0.12026787
         inSlope: 0
         outSlope: 0
         tangentMode: 0
