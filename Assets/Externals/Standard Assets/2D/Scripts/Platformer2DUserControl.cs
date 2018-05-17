@@ -25,7 +25,6 @@ namespace UnityStandardAssets._2D
                 m_Jump = CrossPlatformInputManager.GetButtonDown(gameObject.name + " Jump");
                 
             }
-            else m_Character.isJumping = true;
         }
 
 

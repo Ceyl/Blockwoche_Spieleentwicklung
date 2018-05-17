@@ -17,6 +17,7 @@ public class MoveBullet : MonoBehaviour {
 
         if (destinationObject == null)
         {
+            //if there is no object hitted, destroy bullet after some time so it isn´t in scene forever.
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
             Destroy(gameObject, 5f);
         }
@@ -26,15 +27,18 @@ public class MoveBullet : MonoBehaviour {
         {
             if (bomb)
             {
+                //check radius of bomb to affect it by explosion.
                 Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 8f);
                 foreach (Collider2D col in collider)
                 {
                     float dist = Vector2.Distance(col.transform.position, transform.position);
                     float bombDamage;
+                    //decrease bomb damage with size of radius.
                     if (dist < 1) bombDamage = damage;
                     else bombDamage = damage / dist;
                     if(col.gameObject.layer == LayerMask.NameToLayer("Effectable") || col.gameObject.layer == LayerMask.NameToLayer("Player"))
                     {
+                        //Add explosion force to objects depending on radius.
                         ExplosionForce(col, col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
                     }
                     if (col.GetComponent<Health>() != null)
@@ -51,29 +55,19 @@ public class MoveBullet : MonoBehaviour {
                 }
                 else if (destinationObject.GetComponent<BuildController>() != null)
                 {
+                    //Player has no health so he just gets knocked back from normal hits.
                     destinationObject.GetComponent<BuildController>().HitPlayer(direction, force);
                 }
             }
             Destroy(gameObject);
         }
-
-
 	}
+    //Method for adding a explosion force to rigid body.
     private static void ExplosionForce( Collider2D hit, Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius, float upliftModifier)
     {
         var dir = (hit.transform.position - explosionPosition);
         float wearoff = 1 - (dir.magnitude / explosionRadius);
         Vector3 baseForce = dir * explosionForce * wearoff;
-        if(hit.GetComponent<PlatformerCharacter2D>() != null){
-            hit.GetComponent<PlatformerCharacter2D>().isJumping = false;
-        }
         body.AddForce(baseForce);
-
-
-        float upliftWearoff = 1 - upliftModifier / explosionRadius;
-        Vector3 upliftForce = Vector2.up * explosionForce * upliftWearoff;
-        //body.AddForce(upliftForce);
     }
-
-
 }

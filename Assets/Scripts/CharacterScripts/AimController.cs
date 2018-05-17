@@ -32,10 +32,11 @@ public class AimController : MonoBehaviour {
         if (bombCounter == 0)
             bombText.gameObject.SetActive(false);
         bombText.transform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 1, 0));
+        //Get movement of x- and y-axis.
         float xCoord = Input.GetAxis(gameObject.name + " Mouse X");
         float yCoord = Input.GetAxis(gameObject.name + " Mouse Y");
 
-            Vector3 movement = new Vector3(xCoord, yCoord, 0);
+        Vector3 movement = new Vector3(xCoord, yCoord, 0);
 
         crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 0.5f);
         crosshair.transform.localPosition = Vector2.ClampMagnitude(crosshair.transform.localPosition, maxDistance);
@@ -44,6 +45,7 @@ public class AimController : MonoBehaviour {
         print(mouseCoords);
         print("x:" + xCoord + "y: " + yCoord);
         
+        //Fire raycast if fire button is pressed.
         if ((Input.GetButtonUp(gameObject.name + " Fire1") || Input.GetAxisRaw(gameObject.name + " Fire1") > 0) && !isFiring)
         {
             isFiring = true;
@@ -51,16 +53,13 @@ public class AimController : MonoBehaviour {
             Vector2 direction = mouseCoords - transform.position;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseCoords - transform.position);
             gameObject.layer = LayerMask.NameToLayer("Player");
+            //Shoot the bullet sprite to hitted object.
             Shoot(hit, direction);
-            if (hit.transform != null)
-            {
-
-            }
-            //Debug.DrawLine(transform.position, (mouseCoords-transform.position) *100);
         }
         if (Input.GetAxisRaw(gameObject.name + " Fire1") <= 0) isFiring = false;
     }
 
+    //Generate the projectile to shoot in direction of hitted object.
     void Shoot(RaycastHit2D hit, Vector2 direction)
     {
         Vector3 destPoint;
@@ -75,6 +74,7 @@ public class AimController : MonoBehaviour {
             destPoint = new Vector3(100, 100, 100);
             destObject = null;
         }
+        //Get the angle to rotate the projectile.
         float angle = Vector3.Angle(mouseCoords - transform.position, transform.right);
         if (mouseCoords.y < transform.position.y) angle *= -1;
 

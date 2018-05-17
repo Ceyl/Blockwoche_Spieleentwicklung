@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class for controlling health of builded objects.
 public class Health : MonoBehaviour {
     private float health;
 	// Use this for initialization
 	void Start () {
 
 	}
+
     private void Awake()
     {
         float size = transform.localScale.x * transform.localScale.y;
-
+//Set health depending on the size of the object.
 if(size == 2)
         {
             health = 50;

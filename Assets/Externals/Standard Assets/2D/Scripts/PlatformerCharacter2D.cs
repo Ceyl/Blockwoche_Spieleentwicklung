@@ -28,7 +28,6 @@ namespace UnityStandardAssets._2D
 
         private bool doubleJump;
         private bool startFalling;
-        public bool isJumping;
         private void Awake()
         {
             // Setting up references.

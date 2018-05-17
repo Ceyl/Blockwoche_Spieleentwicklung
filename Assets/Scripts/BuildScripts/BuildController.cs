@@ -40,29 +40,34 @@ public class BuildController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         ManageInput();
         
         if (buildModeOn)
         {
             SnapToGrid();
+            //Check if button for building is pressed and if it can be build.
             if (Input.GetAxisRaw(gameObject.name + " Build") > 0 && canBuild && !isGenerating && Time.time >= coolDowns[buildMode])
             {
+                //reset cooldown timer for selected building object.
                 coolDowns[buildMode] = Time.time + Mathf.Max(transparentPlate.localScale.x, transparentPlate.localScale.y) / 2;
                 isGenerating = true;
                 buildPlate.transform.localScale = transparentPlate.localScale;
+                //Generate selected object and change its color to match the player color.
                 GameObject cube = Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
                 cube.GetComponent<SpriteRenderer>().material.color = playerColor;
             }
             if (Input.GetAxis(gameObject.name + " Build") <= 0) isGenerating = false;
+            //if cancel button is pressed, reset build mode and destroy transparent preview.
             if (Input.GetButtonUp(gameObject.name + " Cancel"))
             {
                 Destroy(transparentPlate.gameObject);
                 buildModeOn = false;
             }
         }
-
 	}
 
+    //Snap the building object to a 1x1 grid, to be more predictable.
     private void SnapToGrid()
     {
         float mousePosX = aimControl.mouseCoords.x;
@@ -86,6 +91,7 @@ public class BuildController : MonoBehaviour {
         }
     }
 
+    //Generate the transparent preview of the building object.
     private void GenerateBuild()
     {
         if (transparentPlate != null) Destroy(transparentPlate.gameObject);
@@ -95,6 +101,7 @@ public class BuildController : MonoBehaviour {
         
     }
 
+    //Manage input for selecting different building objects.
     private void ManageInput()
     {
         if (Input.GetButtonUp(gameObject.name + " SelectBuildLeft"))
@@ -115,11 +122,9 @@ public class BuildController : MonoBehaviour {
             GenerateBuild();
             buildModeOn = true;
         }
-
-
-
     }
 
+    //Add force to player if hit by normal bullet.
     public void HitPlayer(Vector2 direction, float force)
     {
         gameObject.GetComponent<Rigidbody2D>().AddForce(direction * force);
