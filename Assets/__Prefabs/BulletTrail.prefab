@@ -55,7 +55,8 @@ MonoBehaviour:
   moveSpeed: 100
   bomb: 0
   damage: 50
-  force: 100
+  force: 200
+  direction: {x: 0, y: 0}
   destinationObject: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
 --- !u!120 &120800570954887258

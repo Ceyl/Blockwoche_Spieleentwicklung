@@ -8,7 +8,7 @@ public class MoveBullet : MonoBehaviour {
     public bool bomb;
     public float damage;
     public float force;
-    
+    public Vector2 direction;
     public Transform destinationObject;
     public Vector3 destination;
 	// Update is called once per frame
@@ -36,11 +36,11 @@ public class MoveBullet : MonoBehaviour {
                     {
 
                         col.GetComponent<Health>().AddDamage(bombDamage);
-                        ExplosionForce(col.GetComponent<Rigidbody2D>(), 800, transform.position, 8f, 0.05f);
+                        ExplosionForce(col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
                     }
                     else if (col.GetComponent<BuildController>() != null)
                     {
-                        ExplosionForce(col.GetComponent<Rigidbody2D>(), 800, transform.position, 8f, 0.05f);
+                        ExplosionForce(col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
                     }
                 }
             }
@@ -52,7 +52,7 @@ public class MoveBullet : MonoBehaviour {
                 }
                 else if (destinationObject.GetComponent<BuildController>() != null)
                 {
-                    destinationObject.GetComponent<BuildController>().HitPlayer(destination, force);
+                    destinationObject.GetComponent<BuildController>().HitPlayer(direction, force);
                 }
             }
             Destroy(gameObject);

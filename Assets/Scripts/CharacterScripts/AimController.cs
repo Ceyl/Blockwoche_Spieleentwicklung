@@ -37,10 +37,10 @@ public class AimController : MonoBehaviour {
         float yCoord = Input.GetAxis(gameObject.name + " Mouse Y");
 
             Vector3 movement = new Vector3(xCoord, yCoord, 0);
-        if (Vector3.Distance(crosshair.transform.position + movement, transform.position) < maxDistance)
-        {
-            crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 1f);
-        }
+
+        crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, maxDistance*2);
+        crosshair.transform.localPosition = Vector2.ClampMagnitude(crosshair.transform.localPosition, maxDistance);
+
         mouseCoords = crosshair.transform.position;
         print(mouseCoords);
         print("x:" + xCoord + "y: " + yCoord);
@@ -49,9 +49,10 @@ public class AimController : MonoBehaviour {
         {
             isFiring = true;
             gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            Vector2 direction = mouseCoords - transform.position;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseCoords - transform.position);
             gameObject.layer = LayerMask.NameToLayer("Player");
-            Shoot(hit);
+            Shoot(hit, direction);
             if (hit.transform != null)
             {
 
@@ -61,7 +62,7 @@ public class AimController : MonoBehaviour {
         if (Input.GetAxisRaw(gameObject.name + " Fire1") <= 0) isFiring = false;
     }
 
-    void Shoot(RaycastHit2D hit)
+    void Shoot(RaycastHit2D hit, Vector2 direction)
     {
         Vector3 destPoint;
         Transform destObject;
@@ -93,6 +94,8 @@ public class AimController : MonoBehaviour {
         Transform bulletTrans = Instantiate(projectile, transform.position, Quaternion.AngleAxis(angle, new Vector3(0,0,1)));
         bulletTrans.gameObject.GetComponent<MoveBullet>().destination = destPoint;
         bulletTrans.gameObject.GetComponent<MoveBullet>().destinationObject = destObject;
+        bulletTrans.gameObject.GetComponent<MoveBullet>().direction = direction;
+        
     }
 
     public void AddBomb()
