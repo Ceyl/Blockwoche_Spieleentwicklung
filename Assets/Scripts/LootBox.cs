@@ -2,14 +2,16 @@
 
 public class LootBox : MonoBehaviour {
 
-    private int content;
+    private enum Content { Gun, Bomb}
     private Animator animator;
     private Camera mainCamera;
+    private Content boxContent;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
+        boxContent = (Content)Random.Range((int)Content.Gun, (int)Content.Bomb);
 	}
 
     void Update()
