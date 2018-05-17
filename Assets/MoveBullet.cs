@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets._2D;
 
 public class MoveBullet : MonoBehaviour {
 
@@ -36,11 +37,11 @@ public class MoveBullet : MonoBehaviour {
                     {
 
                         col.GetComponent<Health>().AddDamage(bombDamage);
-                        ExplosionForce(col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
+                        ExplosionForce(col, col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
                     }
-                    else if (col.GetComponent<BuildController>() != null)
+                    else if (col.GetComponent<BuildController>() != null && !(col.GetType() == typeof(CircleCollider2D)))
                     {
-                        ExplosionForce(col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
+                        ExplosionForce(col, col.GetComponent<Rigidbody2D>(), force, transform.position, 8f, 0.05f);
                     }
                 }
             }
@@ -60,12 +61,16 @@ public class MoveBullet : MonoBehaviour {
 
 
 	}
-    private static void ExplosionForce( Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius, float upliftModifier)
+    private static void ExplosionForce( Collider2D hit, Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius, float upliftModifier)
     {
-        var dir = (body.transform.position - explosionPosition);
+        var dir = (hit.transform.position - explosionPosition);
         float wearoff = 1 - (dir.magnitude / explosionRadius);
         Vector3 baseForce = dir * explosionForce * wearoff;
+        if(hit.GetComponent<PlatformerCharacter2D>() != null){
+            hit.GetComponent<PlatformerCharacter2D>().isJumping = false;
+        }
         body.AddForce(baseForce);
+
 
         float upliftWearoff = 1 - upliftModifier / explosionRadius;
         Vector3 upliftForce = Vector2.up * explosionForce * upliftWearoff;

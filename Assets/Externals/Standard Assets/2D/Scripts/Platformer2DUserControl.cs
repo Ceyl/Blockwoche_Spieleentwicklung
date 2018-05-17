@@ -23,7 +23,9 @@ namespace UnityStandardAssets._2D
             {
                 // Read the jump input in Update so button presses aren't missed.
                 m_Jump = CrossPlatformInputManager.GetButtonDown(gameObject.name + " Jump");
+                
             }
+            else m_Character.isJumping = true;
         }
 
 

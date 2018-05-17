@@ -28,7 +28,7 @@ namespace UnityStandardAssets._2D
 
         private bool doubleJump;
         private bool startFalling;
-
+        public bool isJumping;
         private void Awake()
         {
             // Setting up references.
@@ -56,6 +56,7 @@ namespace UnityStandardAssets._2D
                     doubleJump = true;
                     m_Walled = false;
                     startFalling = false;
+                    
                 }
             }
 
@@ -106,8 +107,14 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetFloat("Speed", Mathf.Abs(move));
 
                 // Move the character
-                m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
-
+                if (move != 0)
+                {
+                    m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed, m_Rigidbody2D.velocity.y);
+                }
+                else
+                {
+                    m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_Rigidbody2D.velocity.y);
+                }
                 // If the input is moving the player right and the player is facing left...
                 if (!m_FacingRight)
                 {
@@ -167,6 +174,15 @@ namespace UnityStandardAssets._2D
             theScale.x *= -1;
             transform.localScale = theScale;
             transform.GetChild(3).transform.position = crossHairPosition;
+        }
+        public void SetAirControl(bool on)
+        {
+            m_AirControl = on;
+        }
+
+        public void SetGrounded(bool grounded)
+        {
+            m_Grounded = grounded;
         }
     }
 }
