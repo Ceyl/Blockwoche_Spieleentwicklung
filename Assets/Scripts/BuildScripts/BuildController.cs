@@ -19,7 +19,7 @@ public class BuildController : MonoBehaviour {
     private int selectedBuildMode;
     private bool isGenerating;
     private Color[] colors = new Color[] { Color.blue, Color.red, Color.green, Color.yellow };
-
+    private Dictionary<BuildMode, float> coolDowns;
     // Use this for initialization
     void Start () {
         aimControl = GetComponentInParent<AimController>();
@@ -29,6 +29,11 @@ public class BuildController : MonoBehaviour {
         scaleCollection[BuildMode.BuildMode2x2] = new Vector3 (2, 2 );
         scaleCollection[BuildMode.BuildMode2x4] = new Vector3 (2, 4 );
         scaleCollection[BuildMode.BuildMode4x2] = new Vector3 (4, 2 );
+        coolDowns = new Dictionary<BuildMode, float>();
+        coolDowns[BuildMode.BuildMode2x1] = 0;
+        coolDowns[BuildMode.BuildMode2x2] = 0;
+        coolDowns[BuildMode.BuildMode2x4] = 0;
+        coolDowns[BuildMode.BuildMode4x2] = 0;
         isGenerating = false;
         
     }
@@ -40,8 +45,9 @@ public class BuildController : MonoBehaviour {
         if (buildModeOn)
         {
             SnapToGrid();
-            if (Input.GetAxisRaw(gameObject.name + " Build") > 0 && canBuild && !isGenerating)
+            if (Input.GetAxisRaw(gameObject.name + " Build") > 0 && canBuild && !isGenerating && Time.time >= coolDowns[buildMode])
             {
+                coolDowns[buildMode] = Time.time + Mathf.Max(transparentPlate.localScale.x, transparentPlate.localScale.y) / 2;
                 isGenerating = true;
                 buildPlate.transform.localScale = transparentPlate.localScale;
                 GameObject cube = Instantiate(buildPlate, transparentPlate.position, Quaternion.identity);
