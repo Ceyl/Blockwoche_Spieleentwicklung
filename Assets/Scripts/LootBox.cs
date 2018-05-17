@@ -2,16 +2,15 @@
 
 public class LootBox : MonoBehaviour {
 
-    private enum Content { Gun, Bomb}
     private Animator animator;
     private Camera mainCamera;
-    private Content boxContent;
+    private bool isHit;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
-        boxContent = (Content)Random.Range((int)Content.Gun, (int)Content.Bomb);
+        isHit = false;
 	}
 
     void Update()
@@ -21,8 +20,10 @@ public class LootBox : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !isHit)
         {
+            isHit = true;
+            collision.gameObject.GetComponent<AimController>().AddBomb();
             animator.Play("OpenBox");
             Invoke("RemoveChest", 0.5f);
         }
