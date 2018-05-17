@@ -30,8 +30,8 @@ public class MoveBullet : MonoBehaviour {
                 {
                     float dist = Vector2.Distance(col.transform.position, transform.position);
                     float bombDamage;
-                    if (dist < 1) bombDamage = 80;
-                    else bombDamage = 80 / dist;
+                    if (dist < 1) bombDamage = damage;
+                    else bombDamage = damage / dist;
                     if (col.GetComponent<Health>() != null)
                     {
 
