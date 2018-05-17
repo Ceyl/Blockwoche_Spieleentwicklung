@@ -15,16 +15,19 @@ public class LootBox : MonoBehaviour {
 
     void Update()
     {
+        // Check if lootbox has fallen out of camera
         CheckOutOfCamera();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // checking if collison object is player to only interact with player objects
         if (collision.gameObject.tag == "Player" && !isHit)
         {
             isHit = true;
             collision.gameObject.GetComponent<AimController>().AddBomb();
             animator.Play("OpenBox");
+            // remove chest after bomb has added properly to player inventory and complete animation has been shown
             Invoke("RemoveChest", 0.5f);
         }
     }
@@ -36,6 +39,7 @@ public class LootBox : MonoBehaviour {
 
     private void CheckOutOfCamera()
     {
+        // remove chest after it has fallen out of cameras y position
         if ((transform.position.y + transform.localScale.y / 2) < mainCamera.transform.position.y - (mainCamera.transform.localScale.y * mainCamera.orthographicSize))
         {
             RemoveChest();

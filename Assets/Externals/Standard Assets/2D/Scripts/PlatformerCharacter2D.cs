@@ -83,19 +83,6 @@ namespace UnityStandardAssets._2D
 
         public void Move(float move, bool crouch, bool jump)
         {
-            // If crouching, check to see if the character can stand up
-            //if (!crouch && m_Anim.GetBool("Crouch"))
-            //{
-            //    // If the character has a ceiling preventing them from standing up, keep them crouching
-            //    if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
-            //    {
-            //        crouch = true;
-            //    }
-            //}
-
-            //// Set whether or not the character is crouching in the animator
-            //m_Anim.SetBool("Crouch", crouch);
-
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
             {
@@ -142,6 +129,7 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetBool("Ground", false);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
+            // start the doubleJump if player is in air and has not use the double jump in air already
             else if(doubleJump && jump && !m_Anim.GetBool("Ground"))
             {
                 doubleJump = false;
@@ -149,12 +137,13 @@ namespace UnityStandardAssets._2D
                 m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0f);
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce * m_doubleJumpModifier));
             }
-
+            // force to simulate a growing sliding speed when jumped to a wall
             if (startFalling && m_Walled)
             {
                 move = (!m_FacingRight && move < 0 ^ m_FacingRight && move > 0) ? move : 0;
                 m_Rigidbody2D.velocity = new Vector2(move, m_Rigidbody2D.velocity.y + m_wallSlideModifier);
             }
+            // if not walled the player shall have a simple gravity force
             else
             {
                 m_Rigidbody2D.AddForce(Physics2D.gravity);
@@ -174,15 +163,6 @@ namespace UnityStandardAssets._2D
             theScale.x *= -1;
             transform.localScale = theScale;
             transform.GetChild(3).transform.position = crossHairPosition;
-        }
-        public void SetAirControl(bool on)
-        {
-            m_AirControl = on;
-        }
-
-        public void SetGrounded(bool grounded)
-        {
-            m_Grounded = grounded;
         }
     }
 }

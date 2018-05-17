@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        // checking if the game is still running
         if (gameRunning)
         {
             if (!gameOver)
@@ -96,6 +97,8 @@ public class GameManager : MonoBehaviour {
         {
             winner = players[i].transform.position.y > winner.transform.position.y ? players[i] : winner;
         }
+
+        // Set winner text and enable Mouse Cursor
         winnerText.SetActive(true);
         winnerNameText.GetComponent<Text>().text = winner.name;
         winnerNameText.SetActive(true);

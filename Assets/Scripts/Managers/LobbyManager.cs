@@ -14,6 +14,7 @@ public class LobbyManager : MonoBehaviour {
 
     public void ChangePlayerAmount()
     {
+        // get input for player numbers
         int dropDownValue = dropDownPlayers.GetComponent<Dropdown>().value;
         GameStats.players = Int32.Parse(dropDownPlayers.GetComponent<Dropdown>().options[dropDownValue].text.Substring(0,1));
     }
