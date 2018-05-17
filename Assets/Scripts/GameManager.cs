@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour {
         winnerNameText.SetActive(true);
         restartButton.SetActive(true);
         gameRunning = false;
+        Cursor.visible = true;
     }
 
     public void Restart()

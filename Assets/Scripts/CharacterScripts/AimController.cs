@@ -12,7 +12,7 @@ public class AimController : MonoBehaviour {
     public int fireRate = 2;
     float timeToFire = 0;
     private bool isFiring;
-    public float maxDistance = 10;
+    public float maxDistance = 2f;
     private Transform crosshair;
     private byte bombCounter;
     private Transform bombText;
@@ -38,7 +38,7 @@ public class AimController : MonoBehaviour {
 
             Vector3 movement = new Vector3(xCoord, yCoord, 0);
 
-        crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, maxDistance*2);
+        crosshair.transform.position = Vector2.MoveTowards(crosshair.transform.position, crosshair.transform.position + movement, 0.5f);
         crosshair.transform.localPosition = Vector2.ClampMagnitude(crosshair.transform.localPosition, maxDistance);
 
         mouseCoords = crosshair.transform.position;
