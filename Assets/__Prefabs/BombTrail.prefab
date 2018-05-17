@@ -54,8 +54,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 50
   bomb: 1
-  damage: 0
-  force: 0
+  damage: 150
+  force: 800
+  direction: {x: 0, y: 0}
   destinationObject: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
 --- !u!120 &120211165784625648
