@@ -1,5 +1,10 @@
 # Blockwoche_Spieleentwicklung
 Spiel im Bereich der Vorlesung Spieleentwicklung SS2018
+Gruppe:
+Holger Schad
+Dennis Gebhardt
+Git-Repository Link zum Klonen:
+https://github.com/Ceyl/Blockwoche_Spieleentwicklung.git
 Kurze Erklärung des Spiels:
 Idee war, eine Art Stickfight-Spiel mit der "Höher"-Vorgabe zu erstellen.
 Ziel des Spiels ist es, nach Ablauf der Zeit der höchste Spieler zu sein, oder die Gegner aus dem Spielbereich zu drängen.
