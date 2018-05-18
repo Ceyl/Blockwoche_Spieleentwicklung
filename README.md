@@ -11,6 +11,7 @@ Spiel starten:
 Im Anfangsscreen kann die Spieleranzahl ausgewählt werden. Spieler 1 ist immer mit der Eingabe von Maus und Tastatur,
 alle weiteren Mitspieler werden per Controller-Input gesteuert.
 Mit einem Klick auf Start startet das Spiel sofort, ein "Pseudo-Random"-Level wird generiert und die Zeit beginnt abzulaufen.
+!WICHTIG: Es muss ein X-Box Controller für die Controller-Steuerung verwendet werden, da die Tastenbelegung sonst nicht der angegebenen entspricht!
 Steuerung:
 							Tastatur:			Controller:
 Fadenkreuz-Steuerung:		Maus				Rechter Analogstick
