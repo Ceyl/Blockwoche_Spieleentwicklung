@@ -313,8 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d20246735e7898499b001858935155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plate: {fileID: 4064616983003616, guid: 066d11226592d32438fa7a1f02f70f65, type: 2}
-  buildPlate: {fileID: 1211356975336866, guid: 5e96f0b8b79d5ee4382e80b8dfb96d60, type: 2}
+  plate: {fileID: 4064616983003616, guid: 31297f8e15342134db340790e5275a7d, type: 2}
+  buildPlate: {fileID: 1211356975336866, guid: c100a95b20f6a144288153aa80d82f87, type: 2}
   transparent: {fileID: 2100000, guid: 1968313bce4438e42bb69d4add4ad29a, type: 2}
   cantBuildTransparent: {fileID: 2100000, guid: 158f3fe3759bb9349840a592af36af94,
     type: 2}
