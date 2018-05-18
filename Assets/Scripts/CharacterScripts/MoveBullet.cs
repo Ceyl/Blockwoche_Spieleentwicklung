@@ -69,5 +69,9 @@ public class MoveBullet : MonoBehaviour {
         float wearoff = 1 - (dir.magnitude / explosionRadius);
         Vector3 baseForce = dir * explosionForce * wearoff;
         body.AddForce(baseForce);
+
+        float upliftWearoff = 1 - upliftModifier / explosionRadius;
+        Vector3 upliftForce = Vector2.up * explosionForce * upliftWearoff;
+        body.AddForce(upliftForce);
     }
 }
